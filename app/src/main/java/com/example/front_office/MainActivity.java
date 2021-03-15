@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton logoaccueil;
@@ -15,6 +16,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DatabaseManager bdd = new DatabaseManager(this);
+        
+        bdd.getWritableDatabase();
+
+        bdd.close();
+
 
         this.logoaccueil = (ImageButton) findViewById(R.id.logoaccueil);
         logoaccueil.setOnClickListener(new View.OnClickListener() {
