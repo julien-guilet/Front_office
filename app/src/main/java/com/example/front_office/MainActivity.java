@@ -15,27 +15,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        DatabaseManager bdd = new DatabaseManager(this);
+
+        setContentView(R.layout.layout_connection);
+
+         //DatabaseManager bdd = new DatabaseManager(this);
         
-        bdd.getWritableDatabase();
+         //bdd.getWritableDatabase();
 
-        bdd.close();
+         //bdd.close();
 
 
-        this.logoaccueil = (ImageButton) findViewById(R.id.logoaccueil);
-        logoaccueil.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   Intent chargementConnection = new Intent(getApplicationContext(), Connection.class);
-                   startActivity(chargementConnection);
-                   finish();
 
-               }
-           }
 
-        );
+
+
 
 
     }

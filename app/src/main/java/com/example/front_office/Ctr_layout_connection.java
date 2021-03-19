@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Connection extends AppCompatActivity {
+public class Ctr_layout_connection extends AppCompatActivity {
 
     private Button monBouton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connection);
+
 
         this.monBouton = (Button) findViewById(R.id.buttonConnection);
         monBouton.setOnClickListener(new View.OnClickListener() {
