@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Ctr_layout_prospect extends AppCompatActivity {
+public class Ctr_layout_ajout_visiteur extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
