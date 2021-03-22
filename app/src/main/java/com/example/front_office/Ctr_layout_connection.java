@@ -15,7 +15,7 @@ public class Ctr_layout_connection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        this.monBouton = (Button) findViewById(R.id.buttonConnection);
+        this.monBouton = (Button) findViewById(R.id.layout_connection_valider);
         monBouton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
