@@ -21,12 +21,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/layout_visiteurs_update"
-        android:layout_width="442dp"
-        android:layout_height="481dp"
-        android:layout_marginTop="292dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/nom_list_view"
+        android:layout_width="185dp"
+        android:layout_height="470dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="261dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
