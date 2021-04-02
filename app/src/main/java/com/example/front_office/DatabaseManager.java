@@ -1,8 +1,14 @@
 package com.example.front_office;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.front_office.model.Commercial;
 
 
 public class DatabaseManager extends SQLiteOpenHelper{
@@ -64,7 +70,8 @@ public class DatabaseManager extends SQLiteOpenHelper{
                 "   MAIL  varchar(32)   ," +
                 "   NOTES  varchar(255)  ," +
                 "   ID_PROSPECT integer" +
-                "   , PRIMARY KEY (ID_PROSPECT) " +
+                "   , PRIMARY KEY (ID_PROSPECT), " +
+                "FOREIGN KEY(RAISON_SOCIALE) REFERENCES ENTREPRISE (RAISON_SOCIALE)"+
                 ");";
 
         String creationTableParticipe = "CREATE TABLE participe ("
@@ -75,61 +82,32 @@ public class DatabaseManager extends SQLiteOpenHelper{
                 "   MAIL  varchar(32)   ," +
                 "   NOTES  varchar(255)  ," +
                 "   ID_PROSPECT integer" +
-                "   , PRIMARY KEY (ID_PROSPECT) " +
+                "   , PRIMARY KEY (ID_PROSPECT), " +
+                "FOREIGN KEY(NOM) REFERENCES EVENEMENT (NOM),"+
+                "FOREIGN KEY(ID_PROSPECT) REFERENCES PROSPECT (ID_PROSPECT)"+
                 ");";
 
         String creationTableRencontre = "CREATE TABLE rencontre ("
                 +"LOGIN  varchar(32)   ," +
                 "NOM varchar(32)  ," +
                 "ID_PROSPECT integer" +
-                "   , PRIMARY KEY (LOGIN,NOM,ID_PROSPECT) " +
+                "   , PRIMARY KEY (LOGIN,NOM,ID_PROSPECT), " +
+                "FOREIGN KEY(LOGIN) REFERENCES COMMERCIAL (LOGIN),"+
+                "FOREIGN KEY(NOM) REFERENCES EVENEMENT (NOM),"+
+                "FOREIGN KEY(ID_PROSPECT) REFERENCES PROSPECT (ID_PROSPECT)"+
                 ");";
 
-        String creationTablePropose = "CREATE TABLE rencontre ("
+        String creationTablePropose = "CREATE TABLE PROPOSE ("
                 +"LIBELLE varchar(32)   ," +
                 "   ID_PROSPECT integer ," +
                 "   PROPOSITION varchar(255) " +
-                "   , PRIMARY KEY (LIBELLE,ID_PROSPECT)  " +
+                "   , PRIMARY KEY (LIBELLE,ID_PROSPECT),  " +
+                "FOREIGN KEY(LIBELLE) REFERENCES PROJET (LIBELLE),"+
+                "FOREIGN KEY(ID_PROSPECT) REFERENCES PROSPECT (ID_PROSPECT)"+
+
                 ");";
 
-        String ajoutReferences = "ALTER TABLE PROSPECT \n" +
-                "  ADD FOREIGN KEY FK_PROSPECT_ENTREPRISE (RAISON_SOCIALE)\n" +
-                "      REFERENCES ENTREPRISE (RAISON_SOCIALE) ;\n" +
-                "\n" +
-                "\n" +
-                "ALTER TABLE PARTICIPE \n" +
-                "  ADD FOREIGN KEY FK_PARTICIPE_EVENEMENT (NOM)\n" +
-                "      REFERENCES EVENEMENT (NOM) ;\n" +
-                "\n" +
-                "\n" +
-                "ALTER TABLE PARTICIPE \n" +
-                "  ADD FOREIGN KEY FK_PARTICIPE_PROSPECT (ID_PROSPECT)\n" +
-                "      REFERENCES PROSPECT (ID_PROSPECT) ;\n" +
-                "\n" +
-                "\n" +
-                "ALTER TABLE RENCONTRE \n" +
-                "  ADD FOREIGN KEY FK_RENCONTRE_COMMERCIAL (LOGIN)\n" +
-                "      REFERENCES COMMERCIAL (LOGIN) ;\n" +
-                "\n" +
-                "\n" +
-                "ALTER TABLE RENCONTRE \n" +
-                "  ADD FOREIGN KEY FK_RENCONTRE_EVENEMENT (NOM)\n" +
-                "      REFERENCES EVENEMENT (NOM) ;\n" +
-                "\n" +
-                "\n" +
-                "ALTER TABLE RENCONTRE \n" +
-                "  ADD FOREIGN KEY FK_RENCONTRE_PROSPECT (ID_PROSPECT)\n" +
-                "      REFERENCES PROSPECT (ID_PROSPECT) ;\n" +
-                "\n" +
-                "\n" +
-                "ALTER TABLE PROPOSE \n" +
-                "  ADD FOREIGN KEY FK_PROPOSE_PROJET (LIBELLE)\n" +
-                "      REFERENCES PROJET (LIBELLE) ;\n" +
-                "\n" +
-                "\n" +
-                "ALTER TABLE PROPOSE \n" +
-                "  ADD FOREIGN KEY FK_PROPOSE_PROSPECT (ID_PROSPECT)\n" +
-                "      REFERENCES PROSPECT (ID_PROSPECT) ;";
+
 
         db.execSQL(creationTableEvenement);
         db.execSQL(creationTableCommercial);
@@ -139,7 +117,8 @@ public class DatabaseManager extends SQLiteOpenHelper{
         db.execSQL(creationTableParticipe);
         db.execSQL(creationTableRencontre);
         db.execSQL(creationTablePropose);
-        db.execSQL(ajoutReferences);
+
+
 
 
         System.out.println("CREATION REUSSI !");
@@ -151,8 +130,37 @@ public class DatabaseManager extends SQLiteOpenHelper{
 
     }
 
-    public void testInsertion(SQLiteDatabase db){
-        db.execSQL("INSERT INTO user VALUES ('michel','jacque');");
+
+    public static Commercial selectCommercial(String login, String mdp, SQLiteDatabase db) {
+        System.out.println("TIEPGS");
+        System.out.println(login.trim());
+        System.out.println(mdp.trim());
+        Cursor c = db.rawQuery("SELECT * FROM commercial WHERE login = '"+login+"' AND password = '"+mdp+"'", null);
+        c.moveToFirst();
+        try {
+            Commercial monCommercial = new Commercial(login, mdp, c.getString(2), c.getString(3),c.getString(4),c.getString(5));
+            return monCommercial;
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Connexion ");
+            Commercial monCommercial = new Commercial("FALSE");
+            return monCommercial;
+
+
+        }
+
+
+    }
+
+    public void InsertionUser(SQLiteDatabase db, String login, String pass, String nom, String prenom, String tel, String email){
+        ContentValues values = new ContentValues();
+        values.put("LOGIN", login);
+        values.put("PASSWORD", pass);
+        values.put("NOM", nom);
+        values.put("PRENOM", prenom);
+        values.put("TEL", tel);
+        values.put("EMAIL", email);
+        db.insert("Commercial",null,values);
+        System.out.println("INSERTION");
 
     }
 }
