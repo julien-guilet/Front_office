@@ -11,7 +11,7 @@ public class Ctr_layout_ajout_visiteur extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.layout_ajout_visiteur);
 
 
     }

@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     Intent intent = new Intent(getApplicationContext(), Ctr_layout_accueil.class);
                     startActivity(intent);
+                    finish();
+
+
                 }
             }
         });
