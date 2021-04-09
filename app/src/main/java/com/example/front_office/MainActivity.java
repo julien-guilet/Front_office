@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bdd = new DatabaseManager(this);
-
+        bdd.InsertionUser(bdd.getWritableDatabase(),"JGUILET","12345","GUILET","Julien","0673313263","guiletjulien@gmail.com");
         setContentView(R.layout.layout_connection);
         this.main = this;
         this.monBouton = (Button) findViewById(R.id.layout_connection_valider);

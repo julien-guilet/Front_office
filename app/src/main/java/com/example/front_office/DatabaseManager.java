@@ -118,7 +118,7 @@ public class DatabaseManager extends SQLiteOpenHelper{
         db.execSQL(creationTableRencontre);
         db.execSQL(creationTablePropose);
 
-
+        this.InsertionUser(this.getWritableDatabase(),"JGUILET","12345","GUILET","Julien","0673313263","guiletjulien@gmail.com");
 
 
         System.out.println("CREATION REUSSI !");
