@@ -43,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
                 Commercial monCommercial  =bdd.selectCommercial(ediTextuser.getText().toString(),ediTextpass.getText().toString(), bdd.getReadableDatabase());
                 if (monCommercial.getLogin() == "FALSE"){
-                    connection(false);
-                } else {
-                    connection(true);
+                    connectionEchoue(false);
+                }else {
+                    Intent intent = new Intent(getApplicationContext(), Ctr_layout_accueil.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -57,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void connection(Boolean conn){
-        AlertDialog.Builder a = new AlertDialog.Builder(this);
-        if (conn == true){
-            a.setMessage("Connection réussi !");
-        } else{
-            a.setMessage("Connection echoué !");
-        }
+    public void connectionEchoue(Boolean conn){
+
+
+        AlertDialog.Builder a = new AlertDialog.Builder(this);a.show();
+        a.setMessage("Connection echoué !");
         a.show();
+
+
     }
 
     public DatabaseManager getBdd() {

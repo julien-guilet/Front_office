@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Ctr_layout_accueil">
+        </activity>
     </application>
 
 </manifest>

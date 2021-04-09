@@ -12,7 +12,7 @@ public class Ctr_layout_accueil extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.layout_accueil);
 
 
     }
